@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mixare</string>
+    <string name="app_name">Team Locator</string>
     <string name="search_hint">Search Location</string>
     
     <string name="N">N</string>
@@ -13,7 +13,7 @@
     <string name="NW">NW</string>
     
     <string name="OSM">Openstreetmap</string>
-    <string name="MIXARE">Mixare</string>
+    <string name="MIXARE">Team Locator</string>
     
     <string name="CIRCLE_MARKER">Circles</string>
     <string name="NAVIGATION_MARKER">Arrows</string>
@@ -38,13 +38,13 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 		
-	<string name="menu_item_1">Data Source</string>
+	<string name="menu_item_1">Teams</string>
 	<string name="menu_item_2">List view</string>
 	<string name="menu_item_3">Map view</string>
 	<string name="menu_item_4">Zoom level</string>
 	<string name="menu_item_5">Search</string>
-	<string name="menu_item_6">Info</string>
-	<string name="menu_item_7">License</string>
+	<string name="menu_item_6">My Location</string>
+	<string name="menu_item_7">Info</string>
 
 	<string name="cancel">Cancel</string>
 

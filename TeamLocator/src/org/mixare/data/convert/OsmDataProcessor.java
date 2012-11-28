@@ -68,7 +68,7 @@ public class OsmDataProcessor extends DataHandler implements DataProcessor {
 	public List<Marker> load(String rawData, int taskId, int colour)
 			throws JSONException {
 		Element root = convertToXmlDocument(rawData).getDocumentElement();
-
+		Log.v("OpenStreetMap DATA: ", rawData);
 		List<Marker> markers = new ArrayList<Marker>();
 		NodeList nodes = root.getElementsByTagName("node");
 

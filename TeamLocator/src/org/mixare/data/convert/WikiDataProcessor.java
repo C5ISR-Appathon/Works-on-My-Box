@@ -64,6 +64,7 @@ public class WikiDataProcessor extends DataHandler implements DataProcessor{
 
 	@Override
 	public List<Marker> load(String rawData, int taskId, int colour) throws JSONException {
+		Log.v("WIKIPEDIA DATA: ", rawData);
 		List<Marker> markers = new ArrayList<Marker>();
 		JSONObject root = convertToJSON(rawData);
 		JSONArray dataArray = root.getJSONArray("geonames");
