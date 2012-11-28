@@ -55,7 +55,8 @@ public class TeamLocatorMain extends Activity
     }
 
     @Override
-    public void onStop() {
+    public void onDestroy() {
+        Log.d( "TLOC", "---->DEBUG: onDestroy called - stopping location updates" );
         locationManager.removeUpdates( updateListener );
         super.onStop();
     }
@@ -66,8 +67,9 @@ public class TeamLocatorMain extends Activity
         
         @Override
         public void onLocationChanged( Location location ) {
-            Log.d( "SMA", "---->DEBUG:  onLocationChanged fired for provider: " + location.getProvider() +", lat=" + location.getLatitude() +", long=" + location.getLongitude() );
+            Log.d( "TLOC", "---->DEBUG:  onLocationChanged fired for provider: " + location.getProvider() +", lat=" + location.getLatitude() +", long=" + location.getLongitude() );
             if( isBetterLocation( location, lastLocation ) ) {
+                Log.d( "TLOC", "---->DEBUG:     new location was better" );
                 lastLocation = location;
                 // TODO: call the service here to pass this location up
             }
@@ -75,17 +77,17 @@ public class TeamLocatorMain extends Activity
 
         @Override
         public void onProviderDisabled( String provider ) {
-            Log.d( "SMA", "---->DEBUG:  onProviderDisabled" );
+            Log.d( "TLOC", "---->DEBUG:  onProviderDisabled" );
         }
 
         @Override
         public void onProviderEnabled( String provider ) {
-            Log.d( "SMA", "---->DEBUG:  onProviderEnabled" );
+            Log.d( "TLOC", "---->DEBUG:  onProviderEnabled" );
         }
 
         @Override
         public void onStatusChanged( String provider, int status, Bundle extras ) {
-            Log.d( "SMA", "---->DEBUG:  onStatusChanged" );
+            Log.d( "TLOC", "---->DEBUG:  onStatusChanged" );
         }
         
         /** Determines whether one Location reading is better than the current Location fix

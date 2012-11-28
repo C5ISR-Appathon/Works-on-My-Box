@@ -1,5 +1,8 @@
 package com.geocent.codeathon.teamlocator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -7,7 +10,9 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.OverlayItem;
 
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
@@ -17,9 +22,10 @@ public class TeamMap extends MapActivity
     private MapView mapView;
     private TeamOverlay itemizedOverlay;
     private MyLocationOverlay myLocationOverlay;
+    private Handler handler;
 
     public void onCreate( Bundle savedInstanceState ) {
-        Log.d( "SMA", "---->DEBUG: onCreate" );
+        Log.d( "TMAP", "---->DEBUG: onCreate" );
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_team_map );
         
@@ -43,11 +49,18 @@ public class TeamMap extends MapActivity
         Drawable drawable = this.getResources().getDrawable( R.drawable.point );
         itemizedOverlay = new TeamOverlay( drawable, this );
         createMarker();
+        handler = new Handler();
+        startBackgroundProcess( this );
     }
 
     @Override
     protected boolean isRouteDisplayed() {
         return false;
+    }
+    
+    private void createOverlays( List<Location> teamList ) {
+        Log.d( "TMAP", "---->DEBUG: createOverlays"  );
+        
     }
 
     private void createMarker() {
@@ -73,4 +86,32 @@ public class TeamMap extends MapActivity
         myLocationOverlay.disableCompass();
     }
     
+    private void startBackgroundProcess( final TeamMap ref ) {
+        Log.d( "TMAP", "---->DEBUG: startBackgroundProcess" );
+        Runnable getTeamLoc = new Runnable() {
+            List<Location> teamList;
+            @Override
+            public void run() {
+                teamList = new ArrayList<Location>();
+                while( true ) {
+                    try {
+                        Thread.sleep( 10000 );
+                    } catch( InterruptedException ie ) {
+                        // do nothing
+                    } 
+                    Log.d( "TMAP", "---->DEBUG:      doInBackground calling service" );
+                    // TODO call team location service here
+                    
+                    handler.post( new Runnable() {
+                        @Override
+                        public void run() {
+                            ref.createOverlays( teamList );
+                        }
+                    });
+                }
+            }
+        };
+        new Thread( getTeamLoc ).start();
+        
+    }
 }
