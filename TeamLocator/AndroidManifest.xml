@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       android:versionCode="26" android:versionName="0.9.2" package="org.mixare" android:installLocation="auto">
 
-    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"/>
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="10"/>
 
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -14,9 +14,9 @@
 	
 	<supports-screens android:anyDensity="true" android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true"></supports-screens>
 	
-	
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-    	<uses-library android:name="com.google.android.maps" />
+        
+        <uses-library android:name="com.google.android.maps" />
         
     	<activity android:name=".MainActivity" android:icon="@drawable/ic_launcher"
 				  android:label="@string/app_name" android:screenOrientation="landscape" >

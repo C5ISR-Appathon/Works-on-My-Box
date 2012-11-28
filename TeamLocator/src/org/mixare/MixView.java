@@ -28,6 +28,8 @@ package org.mixare;
 
 import static android.hardware.SensorManager.SENSOR_DELAY_GAME;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -58,9 +60,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.FloatMath;
 import android.util.Log;
@@ -95,6 +100,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 	
 	// TAG for logging
 	public static final String TAG = "Mixare";
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	// why use Memory to save a state? MixContext? activity lifecycle?
 	//private static MixView CONTEXT;
@@ -155,6 +161,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 
 	@Override
 	protected void onPause() {
+	    Log.d( TAG,  "---->DEBUG: onPause called"  );
 		super.onPause();
 
 		try {
@@ -190,21 +197,29 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 	 * Base on the result returned, it either refreshes screen or not.
 	 * Default value for refreshing is false
 	 */
-	protected void onActivityResult(final int requestCode,
-			final int resultCode, Intent data) {
+	protected void onActivityResult(final int requestCode, final int resultCode, Intent data) {
 		Log.d(TAG + " WorkFlow", "MixView - onActivityResult Called");
-		// check if the returned is request to refresh screen (setting might be
-		// changed)
-		try {
-			if (data.getBooleanExtra("RefreshScreen", false)) {
-				Log.d(TAG + " WorkFlow",
-						"MixView - Received Refresh Screen Request .. about to refresh");
-				repaint();
-				refreshDownload();
-			}
-
-		} catch (Exception ex) {
-			// do nothing do to mix of return results.
+		if( requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
+		    if( resultCode == RESULT_OK ){
+		        // Image captured and saved to the file URI stored in the intent
+		        Toast.makeText( this, "Image saved to \n" + data.getData(), Toast.LENGTH_LONG ).show();
+		    } else {
+		        Log.e( TAG, "Photo was not captured!!!" );
+		    }
+		} else {
+    		// check if the returned is request to refresh screen (setting might be
+    		// changed)
+    		try {
+    			if (data.getBooleanExtra("RefreshScreen", false)) {
+    				Log.d(TAG + " WorkFlow",
+    						"MixView - Received Refresh Screen Request .. about to refresh");
+    				repaint();
+    				refreshDownload();
+    			}
+    
+    		} catch (Exception ex) {
+    			// do nothing do to mix of return results.
+    		}
 		}
 	}
 	
@@ -595,19 +610,26 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 			break;
 		/* List view */
 		case 2:
-			/*
-			 * if the list of titles to show in alternative list view is not
-			 * empty
-			 */
-			if (getDataView().getDataHandler().getMarkerCount() > 0) {
-				Intent intent1 = new Intent(MixView.this, MixListView.class); 
-				startActivityForResult(intent1, 42);
-			}
-			/* if the list is empty */
-			else {
-				Toast.makeText(this, R.string.empty_list, Toast.LENGTH_LONG)
-						.show();
-			}
+		    Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+		    // Get the file that will hold the image
+		    Uri fileUri = this.getOutputMediaFileUri();
+		    intent.putExtra( MediaStore.EXTRA_OUTPUT, fileUri );
+		    
+		    startActivityForResult( intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE );
+		    
+//			/*
+//			 * if the list of titles to show in alternative list view is not
+//			 * empty
+//			 */
+//			if (getDataView().getDataHandler().getMarkerCount() > 0) {
+//				Intent intent1 = new Intent(MixView.this, MixListView.class); 
+//				startActivityForResult(intent1, 42);
+//			}
+//			/* if the list is empty */
+//			else {
+//				Toast.makeText(this, R.string.empty_list, Toast.LENGTH_LONG)
+//						.show();
+//			}
 			break;
 		/* Map View */
 		case 3:
@@ -670,6 +692,42 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		return true;
 	}
 
+	/** Create a file Uri for saving an image or video */
+    private Uri getOutputMediaFileUri(){
+        File file = getOutputMediaFile();
+        Uri fileUri = null;
+        if( file != null ) {
+            fileUri = Uri.fromFile( file );
+        }
+        return fileUri;
+	}
+
+	/** Create a File for saving an image or video */
+	private File getOutputMediaFile(){
+	    // To be safe, you should check that the SDCard is mounted
+	    // using Environment.getExternalStorageState() before doing this.
+
+	    File mediaStorageDir = 
+	            new File(Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES), "TeamLocator");
+	    // This location works best if you want the created images to be shared
+	    // between applications and persist after your app has been uninstalled.
+
+	    // Create the storage directory if it does not exist
+	    if (! mediaStorageDir.exists()){
+	        if (! mediaStorageDir.mkdirs()){
+	            Log.d("MyCameraApp", "failed to create directory");
+	            return null;
+	        }
+	    }
+
+	    // Create a media file name
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
+
+	    return mediaFile;
+	}	
+	
 	/* ******** Operators - Sensors ****** */
 
 	private SeekBar.OnSeekBarChangeListener myZoomBarOnSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
