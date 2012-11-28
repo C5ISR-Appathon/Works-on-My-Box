@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+	<TextView android:id="@+id/missionNameText"
+	  android:layout_width="fill_parent" 
+	  android:layout_height="wrap_content" 
+	  android:text="@string/mission_name"
+	/>
+    <EditText 
+    android:id="@+id/missionName"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:inputType="text"
+    android:hint="@string/mission_name_hint"
+    />
+    <TextView android:id="@+id/teamNameText"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:text="@string/team_name"
+    />
+    <EditText 
+    android:id="@+id/teamName"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:inputType="text"
+    android:hint="@string/team_name_hint"
+    />
+    <TextView android:id="@+id/memberNameText"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:text="@string/member_name"
+    />
+    <EditText 
+    android:id="@+id/memberName"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:inputType="text"
+    android:hint="@string/member_name_hint"
+    />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text" 
+        android:onClick="registerMember"
+    />
+
+</LinearLayout>
