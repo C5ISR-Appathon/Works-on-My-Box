@@ -202,7 +202,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		if( requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
 		    if( resultCode == RESULT_OK ){
 		        // Image captured and saved to the file URI stored in the intent
-		        Toast.makeText( this, "Image saved to \n" + data.getData(), Toast.LENGTH_LONG ).show();
+//		        Toast.makeText( this, "Image saved to \n" + data.getData(), Toast.LENGTH_LONG ).show();
 		    } else {
 		        Log.e( TAG, "Photo was not captured!!!" );
 		    }

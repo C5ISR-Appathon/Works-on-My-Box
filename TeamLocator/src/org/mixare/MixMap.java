@@ -19,7 +19,10 @@
 
 package org.mixare;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mixare.data.DataHandler;
@@ -38,7 +41,10 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,6 +79,7 @@ public class MixMap extends MapActivity implements OnTouchListener{
 	private static List<GeoPoint> walkingPath = new ArrayList<GeoPoint>();
 	
 	public static final String PREFS_NAME = "MixMapPrefs";
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	private MixContext mixContext;
 	private MapView mapView;
@@ -97,7 +104,7 @@ public class MixMap extends MapActivity implements OnTouchListener{
 		//map = this; //savedInstanceState will save the instance for you.
 
 		setMapContext(this);
-		setMapView(new MapView(this, "0bynx7meN9jlSdHQ4-lK_Vzsw-T82UVibnI0nCA"));
+		setMapView(new MapView(this, "0B7s9cGk_8CVYCsmrhbidifBQjEnSkp5uCOx0JA"));
 		getMapView().setBuiltInZoomControls(true);
 		getMapView().setClickable(true);
 		getMapView().setSatellite(true);
@@ -253,7 +260,13 @@ public class MixMap extends MapActivity implements OnTouchListener{
 			break;
 			/*List View*/
 		case 4:
-			createListView();
+            Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+            // Get the file that will hold the image
+            Uri fileUri = this.getOutputMediaFileUri();
+            intent.putExtra( MediaStore.EXTRA_OUTPUT, fileUri );
+            
+            startActivityForResult( intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE );
+//			createListView();
 			//finish(); don't close map if list view created
 			break;
 			/*back to Camera View*/
@@ -269,6 +282,54 @@ public class MixMap extends MapActivity implements OnTouchListener{
 		return true;
 	}
 
+    /** Create a file Uri for saving an image or video */
+    private Uri getOutputMediaFileUri(){
+        File file = getOutputMediaFile();
+        Uri fileUri = null;
+        if( file != null ) {
+            fileUri = Uri.fromFile( file );
+        }
+        return fileUri;
+    }
+
+    /** Create a File for saving an image or video */
+    private File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = 
+                new File(Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES), "TeamLocator");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d("MyCameraApp", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
+
+        return mediaFile;
+    }   
+    
+    protected void onActivityResult(final int requestCode, final int resultCode, Intent data) {
+        Log.d("MapView" + " WorkFlow", "MapView - onActivityResult Called");
+        if( requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE ) {
+            if( resultCode == RESULT_OK ){
+                // Image captured and saved to the file URI stored in the intent
+//                Toast.makeText( this, "Image saved to \n" + data.getData(), Toast.LENGTH_LONG ).show();
+            } else {
+                Log.e( "MapView", "Photo was not captured!!!" );
+            }
+        }
+    }
+    
 	public void startPointMsg(){
 		Toast.makeText(getMapContext(), R.string.map_current_location_click, Toast.LENGTH_LONG).show();
 	}
