@@ -137,15 +137,6 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 				isInited = true;
 			}
 
-			/*Get the preference file PREFS_NAME stored in the internal memory of the phone*/
-			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-			
-			/*check if the application is launched for the first time*/
-			if(settings.getBoolean("firstAccess",false)==false){
-				firstAccess(settings);
-
-			}
-
 		} catch (Exception ex) {
 			doError(ex);
 		}
@@ -576,20 +567,16 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		MenuItem item4 = menu.add(base, base + 3, base + 3,
 				getString(R.string.menu_item_4));
 		MenuItem item5 = menu.add(base, base + 4, base + 4,
-				getString(R.string.menu_item_5));
-		MenuItem item6 = menu.add(base, base + 5, base + 5,
 				getString(R.string.menu_item_6));
-		MenuItem item7 = menu.add(base, base + 6, base + 6,
-				getString(R.string.menu_item_7));
+
 
 		/* assign icons to the menu items */
-		item1.setIcon(drawable.icon_datasource);
+		item1.setIcon(R.drawable.icon_datasource);
 		item2.setIcon(android.R.drawable.ic_menu_view);
 		item3.setIcon(android.R.drawable.ic_menu_mapmode);
 		item4.setIcon(android.R.drawable.ic_menu_zoom);
-		item5.setIcon(android.R.drawable.ic_menu_search);
-		item6.setIcon(android.R.drawable.ic_menu_info_details);
-		item7.setIcon(android.R.drawable.ic_menu_share);
+		item5.setIcon(android.R.drawable.ic_menu_info_details);
+
 
 		return true;
 	}
