@@ -227,20 +227,20 @@ public class MixMap extends MapActivity implements OnTouchListener{
 		MenuItem item2 =menu.add(base, base+1, base+1, getString(R.string.map_menu_satellite_mode));
 		MenuItem item3 =menu.add(base, base+2, base+2, getString(R.string.map_my_location)); 
 		MenuItem item4 =menu.add(base, base+3, base+3, getString(R.string.menu_item_2)); 
-		MenuItem item5 =menu.add(base, base+4, base+4, getString(R.string.map_menu_cam_mode)); 
+//		MenuItem item5 =menu.add(base, base+4, base+4, getString(R.string.map_menu_cam_mode)); 
 		MenuItem item6 =null;
-		if(isPathVisible()){
-			item6 =menu.add(base, base+5, base+5, getString(R.string.map_toggle_path_off)); 
-		}else{
-			item6 =menu.add(base, base+5, base+5, getString(R.string.map_toggle_path_on));
-		}
+//		if(isPathVisible()){
+//			item6 =menu.add(base, base+5, base+5, getString(R.string.map_toggle_path_off)); 
+//		}else{
+//			item6 =menu.add(base, base+5, base+5, getString(R.string.map_toggle_path_on));
+//		}
 		/*assign icons to the menu items*/
 		item1.setIcon(android.R.drawable.ic_menu_gallery);
 		item2.setIcon(android.R.drawable.ic_menu_mapmode);
 		item3.setIcon(android.R.drawable.ic_menu_mylocation);
 		item4.setIcon(android.R.drawable.ic_menu_view);
-		item5.setIcon(android.R.drawable.ic_menu_camera);
-		item6.setIcon(android.R.drawable.ic_menu_directions);
+//		item5.setIcon(android.R.drawable.ic_menu_camera);
+//		item6.setIcon(android.R.drawable.ic_menu_directions);
 		return true;
 	}
 
