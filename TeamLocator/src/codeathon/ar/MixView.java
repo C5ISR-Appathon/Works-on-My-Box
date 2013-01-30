@@ -560,8 +560,8 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		/* define the first */
 		MenuItem item1 = menu.add(base, base, base,
 				getString(R.string.menu_item_1));
-//		MenuItem item2 = menu.add(base, base + 1, base + 1,
-//				getString(R.string.menu_item_2));
+		MenuItem item2 = menu.add(base, base + 1, base + 1,
+				getString(R.string.menu_item_2));
 		MenuItem item3 = menu.add(base, base + 2, base + 2,
 				getString(R.string.menu_item_3));
 		MenuItem item4 = menu.add(base, base + 3, base + 3,
@@ -572,7 +572,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 
 		/* assign icons to the menu items */
 		item1.setIcon(R.drawable.icon_datasource);
-//		item2.setIcon(android.R.drawable.ic_menu_view);
+		item2.setIcon(android.R.drawable.ic_menu_view);
 		item3.setIcon(android.R.drawable.ic_menu_mapmode);
 		item4.setIcon(android.R.drawable.ic_menu_zoom);
 		item5.setIcon(android.R.drawable.ic_menu_info_details);

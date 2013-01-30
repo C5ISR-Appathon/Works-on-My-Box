@@ -18,10 +18,14 @@
  */
 package codeathon.ar.data;
 
+import java.util.Map;
+import java.util.Set;
+
 import codeathon.ar.*;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Singleton slass that manages the storage of datasources
@@ -40,6 +44,12 @@ public class DataSourceStorage {
 	public DataSourceStorage(Context ctx){
 		this.ctx = ctx;
 		settings = ctx.getSharedPreferences(DataSourceList.SHARED_PREFS, 0);
+		Map<String, ?> map = settings.getAll();
+		Set<String> set = map.keySet();
+		for( String key : set ) {
+		    Object value = map.get( key );
+		    Log.d( "Mixare.DataSourceStorage", "---->DEBUG: key: " + key + ", value=" + value.toString() );
+		}
 	}
 	
 	public static void init(Context ctx){

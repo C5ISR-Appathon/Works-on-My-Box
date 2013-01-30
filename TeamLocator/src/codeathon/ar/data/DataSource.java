@@ -46,7 +46,7 @@ public class DataSource extends Activity {
 	private String url;
 
 	public enum TYPE {
-		WIKIPEDIA, BUZZ, TWITTER, OSM, MIXARE, ARENA
+		WIKIPEDIA, BUZZ, TWITTER, OSM, MIXARE, ARENA, TEAM
 	};
 
 	public enum DISPLAY {
@@ -215,6 +215,11 @@ public class DataSource extends Activity {
 			case OSM:
 				ret += DataConvertor.getOSMBoundingBox(lat, lon, radius);
 				break;
+				
+			case TEAM:
+			    ret += "?memberId=1&maxRange=1500";
+                Log.d( "Mixare Datasource", "---->DEBUG: creating request parm for TEAM type: " + ret );
+			    break;
 			}
 
 		}

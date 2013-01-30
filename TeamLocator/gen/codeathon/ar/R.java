@@ -80,6 +80,7 @@ public final class R {
         public static final int S=0x7f070006;
         public static final int SE=0x7f070005;
         public static final int SW=0x7f070007;
+        public static final int TEAM=0x7f070045;
         public static final int W=0x7f070008;
         public static final int accuracy=0x7f07002d;
         public static final int add_osm_menu=0x7f07003f;
@@ -95,9 +96,9 @@ public final class R {
         public static final int connection_error_dialog_button2=0x7f070020;
         public static final int connection_error_dialog_button3=0x7f070021;
         public static final int data_source_add=0x7f070036;
-        public static final int data_source_change_osm=0x7f07004a;
-        public static final int data_source_change_twitter=0x7f070049;
-        public static final int data_source_change_wikipedia=0x7f070048;
+        public static final int data_source_change_osm=0x7f07004b;
+        public static final int data_source_change_twitter=0x7f07004a;
+        public static final int data_source_change_wikipedia=0x7f070049;
         public static final int data_source_delete=0x7f070038;
         public static final int data_source_delete_err=0x7f07001d;
         public static final int data_source_edit=0x7f070037;
@@ -111,8 +112,8 @@ public final class R {
         public static final int insert_osm_url=0x7f070040;
         public static final int latitude=0x7f07002a;
         public static final int launch_plugins=0x7f070010;
-        public static final int license=0x7f070045;
-        public static final int license_title=0x7f070047;
+        public static final int license=0x7f070046;
+        public static final int license_title=0x7f070048;
         public static final int location_not_found=0x7f070043;
         public static final int longitude=0x7f070029;
         public static final int map_current_location_click=0x7f070035;
@@ -128,7 +129,7 @@ public final class R {
         public static final int menu_item_4=0x7f070018;
         public static final int menu_item_5=0x7f070019;
         public static final int menu_item_6=0x7f07001a;
-        public static final int menu_item_7=0x7f070046;
+        public static final int menu_item_7=0x7f070047;
         public static final int no=0x7f070014;
         public static final int no_website_available=0x7f070025;
         public static final int option_not_available=0x7f07000f;
